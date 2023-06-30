@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main-div">
+      <div class="entry-title-div">
+        <h1 id="entry-title">Railway Ticket Booking System</h1>
+      </div>
+      <div class="wrapper">
+        <form method="post" action="/find_trains">
+          <div class="search-input">
+            <img
+              class="icon"
+              src="icons8-location (1).gif"
+              alt="location-icon"
+            />
+            <input type="text" placeholder="from" id="input-1" />
+            <div class="autocom-box">
+              <!-- here list are inserted from javascript -->
+            </div>
+          </div>
+          <div class="swap-btn-div">
+            <img id="swap-img" src="swap_svg1.svg" alt="swap-stations" />
+          </div>
+          <div class="search-input-2">
+            <img
+              class="icon"
+              src="destination-icon.gif"
+              alt="destination-icon"
+            />
+            <input id="input-2" type="text" placeholder="to" />
+            <div class="autocom-box-2">
+              <!-- here list are inserted from javascript -->
+            </div>
+          </div>
+          <div class="search-btn-div">
+            <button id="search-btn" type="submit">search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

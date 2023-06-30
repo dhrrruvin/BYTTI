@@ -1,0 +1,20 @@
+sql commands to paste in shell
+
+create table seats (
+    id number auto_increment primary_key,
+    train_number varchar(10),
+    source_station_code varchar(7),
+    destination_station_code varchar(7),
+    seats number
+);
+
+select * from book_seats where id between 17870 and 17880;
+
+decrement seat counter
+update book_seats set seats = seats-1 where id between 17870 and 17882;
+
+check if between this two ids value of field is 1
+select * from book_seats where id between 17870 and 17880 and seats >= 1;
+
+make seats as 2
+update book_seats set seats = 2 where id between 17870 and 17882;

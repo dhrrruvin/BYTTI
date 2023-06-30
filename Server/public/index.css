@@ -1,0 +1,303 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Playfair Display', serif;
+}
+
+.inp-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.search-btn-div {
+    justify-content: center;
+    align-items: center;
+}
+
+#search-trains-btn {
+    outline: none;
+    position: relative;
+    width: 100px;
+    height: 30px;
+}
+
+input {
+    font-family: 'Playfair Display', serif;
+    height: 40px;
+    width: 250px;
+    padding: 15px 10px;
+    font-size: 18px;
+    outline: none;
+    margin-right: 10px;
+    color: white;
+    background-color: #111111;
+}
+
+input::placeholder {
+    color: white;
+}
+
+.list-items {
+    color: white;
+    background-color: #2596be;
+    padding: 10px 5px;
+    z-index: 1;
+}
+
+.list-items:hover {
+    cursor: pointer;
+    background-color: black;
+}
+
+.revert {
+    margin-right: 10px;
+}
+
+.stations {
+    position: absolute;
+    width: 250px;
+    max-height: 200px;
+    overflow-y: scroll;
+    border-radius: 0 0 5px 5px;
+}
+
+.stations::-webkit-scrollbar {
+    display: none;
+} */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, sans-serif; */
+}
+
+body{
+  background: #664AFF;
+  padding: 0 20px;
+}
+
+::selection{
+  color: #fff;
+  background: #664AFF;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  max-width: 450px;
+  margin: 100px auto;
+}
+
+.wrapper .search-input{
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+
+.entry-title-div {
+  position: relative;
+  text-align: center;
+  margin-top: 50px;
+  color: #111111;
+}
+
+#entry-title {
+  color: #efefef;
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 95.6px;
+}
+
+.search-input #input-1{
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+}
+
+.search-input.active #input{
+  border-radius: 5px 5px 0 0;
+  z-index: 9999;
+}
+
+.search-input .autocom-box{
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.search-input.active .autocom-box{
+  position: absolute;
+  width: 100%;
+  background:#fff;
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 9998;
+  border-radius: 3px;
+  box-shadow: 2px 1px 5px rgba(0,0,0,0.1);
+}
+
+.search-input.active .autocom-box::-webkit-scrollbar {
+  appearance: none;
+}
+
+.autocom-box li{
+  list-style: none;
+  padding: 16px 12px;
+  height: 50px;
+  width: 100%;
+  display: none;
+  cursor: default;
+  border-radius: 3px;
+}
+
+.search-input.active .autocom-box li{
+  display: block;
+}
+.autocom-box li:hover{
+  background: #efefef;
+}
+
+.search-input .icon{
+  position: absolute;
+  margin: 11px 5px 11px;
+  right: 0px;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  justify-content: center;
+}
+
+.wrapper .search-input-2{
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+
+.search-input-2 #input-2{
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+}
+
+.search-input-2.active #input-2{
+  z-index: 9999;
+  border-radius: 5px 5px 0 0;
+}
+
+.search-input-2 .autocom-box-2{
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.search-input-2.active .autocom-box-2{
+  position: absolute;
+  width: 100%;
+  background:#fff;
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 9998;
+  border-radius: 5px 5px;
+  box-shadow: 2px 1px 5px rgba(0,0,0,0.1);
+}
+
+.search-input-2.active .autocom-box-2::-webkit-scrollbar {
+  appearance: none;
+}
+
+.autocom-box-2 li{
+  list-style: none;
+  padding: 16px 12px;
+  height: 50px;
+  width: 100%;
+  display: none;
+  cursor: default;
+  border-radius: 3px;
+}
+
+.search-input-2.active .autocom-box-2 li{
+  display: block;
+}
+.autocom-box-2 li:hover{
+  background: #efefef;
+}
+
+.search-input-2 .icon{
+  position: absolute;
+  margin: 11px 5px 11px;
+  right: 0px;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  justify-content: center;
+}
+
+.swap-btn-div {
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-btn-div {
+  position: relative;
+  margin-top: 30px;
+  text-align: center;
+}
+
+#search-btn {
+  position: relative;
+  background-color: #0a2a8d;
+  color: white;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#search-btn:hover {
+  background-color: #2e0683;
+}

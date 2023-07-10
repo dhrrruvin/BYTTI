@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./HomePage.css";
-import destinationImage from "./destination-icon.gif";
-import locationImage from "./location.gif";
-import swapImage from "./swap.svg";
 import useFetch from "../../hooks/useFetch";
-import List from "./List/List";
+import List from "../HomePage/List/List";
+import "./Navbar.css";
+import swapImage from "../HomePage/swap.svg";
+import { Link } from "react-router-dom";
 
-const HomePage = () => {
+const Navbar = ({ station }) => {
   const { data, setData } = useFetch();
 
   const [isDropDownVisible, setIsDropDownVisible] = useState({
@@ -15,7 +13,13 @@ const HomePage = () => {
     input2: false,
   });
 
-  const [selectedItem, setSelectedItem] = useState({ input1: "", input2: "" });
+  const source = station.input1;
+  const destination = station.input2;
+
+  const [selectedItem, setSelectedItem] = useState({
+    input1: source,
+    input2: destination,
+  });
 
   const handleFocus = (inputId) => {
     setIsDropDownVisible((prevState) => ({
@@ -60,28 +64,24 @@ const HomePage = () => {
   };
 
   return (
-    <div className="container">
-      <div className="entry-title-div">
-        <h1 id="entry-title">Railway Ticket Booking System</h1>
-      </div>
-      <div className="main">
-        <div className="search-input">
+    <div className="navbar">
+      <div className="navbar-elements-div">
+        <div className="input1-div">
           <input
             type="text"
-            placeholder="from"
-            id="input-1"
+            id="input1"
+            placeholder="FROM"
             onChange={(e) => handleInputChange(e, "input1")}
             onBlur={() => handleBlur("input1")}
             value={selectedItem.input1}
           />
-          <img className="icon" src={locationImage} alt="location-icon" />
-          {isDropDownVisible.input1 && selectedItem.input1 && (
-            <List
-              stations={data.results}
-              handleItemClick={(text) => handleItemClick(text, "input1")}
-            />
-          )}
         </div>
+        {isDropDownVisible.input1 && selectedItem.input1 && (
+          <List
+            stations={data.results}
+            handleItemClick={(text) => handleItemClick(text, "input1")}
+          />
+        )}
         <div className="swap-btn-div">
           <img
             id="swap-img"
@@ -90,27 +90,26 @@ const HomePage = () => {
             onClick={() => swapStations()}
           />
         </div>
-        <div className="search-input-2">
+        <div className="input2-div">
           <input
             type="text"
-            placeholder="to"
-            id="input-2"
+            id="input1"
+            placeholder="TO"
             onChange={(e) => handleInputChange(e, "input2")}
             onBlur={() => handleBlur("input2")}
             value={selectedItem.input2}
           />
-          <img className="icon" src={destinationImage} alt="location-icon" />
-          {isDropDownVisible.input2 && selectedItem.input2 && (
-            <List
-              stations={data.results}
-              handleItemClick={(text) => handleItemClick(text, "input2")}
-            />
-          )}
         </div>
-        <div className="search-btn-div">
+        {isDropDownVisible.input2 && selectedItem.input2 && (
+          <List
+            stations={data.results}
+            handleItemClick={(text) => handleItemClick(text, "input2")}
+          />
+        )}
+        <div className="modify-btn-div">
           <Link to="/available-trains" state={{ data: selectedItem }}>
-            <button id="search-btn" type="submit">
-              search
+            <button id="modify-btn" type="submit">
+              Modify
             </button>
           </Link>
         </div>
@@ -119,4 +118,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Navbar;

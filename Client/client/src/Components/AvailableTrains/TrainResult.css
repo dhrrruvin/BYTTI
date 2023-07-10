@@ -1,0 +1,90 @@
+.train-result-div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: blueviolet;
+}
+
+.train-result-header-div {
+    position: relative;
+    height: 50px;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 0 5px 0 5px;
+}
+
+.train-name {
+    color: white;
+}
+
+.results .main-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-content .train-info {
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+}
+
+.right {
+    display: flex;
+    flex-direction: row;
+}
+
+.ticket-show-div {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 10px;
+}
+
+.ticket-status-div {
+    width: 180px;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    padding: 5px;
+}
+
+.book-btn-div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 80px;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+}
+
+.book-btn {
+    height: 40px;
+    width: 100%;
+}
+
+
+
+
+

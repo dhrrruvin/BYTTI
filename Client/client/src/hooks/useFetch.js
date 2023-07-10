@@ -21,7 +21,7 @@ const useFetch = () => {
           }
         };
         fetch();
-      }, 1000);
+      }, 200);
       return () => clearTimeout(timeoutId);
     }
   }, [data.slug]);

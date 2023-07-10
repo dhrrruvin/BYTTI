@@ -1,13 +1,19 @@
 import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./Components/HomePage/HomePage";
+import AvailableTrains from "./Components/AvailableTrains/AvailableTrains";
 
 function App() {
   return (
     <div className="App">
-      <Router exact path="/">
-        <HomePage />
+      {/* <HomePage /> */}
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/available-trains" element={<AvailableTrains />} />
+        </Routes>
       </Router>
+
       {/* <Router exact path="/logout">
         <Home />
       </Router>

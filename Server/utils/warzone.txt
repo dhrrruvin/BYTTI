@@ -18,3 +18,6 @@ select * from book_seats where id between 17870 and 17880 and seats >= 1;
 
 make seats as 2
 update book_seats set seats = 2 where id between 17870 and 17882;
+
+check the availability of the seats
+select seats from book_seats where train_number="${train_number}" and source_station_code="${source}" and destination_station_code="${destination}"

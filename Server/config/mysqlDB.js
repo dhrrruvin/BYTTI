@@ -40,11 +40,11 @@ function getConnection() {
   return new Promise((resolve, reject) => {
     if (connectionPool.length === 0) {
       const connection = mysql.createConnection(poolConfig);
-      console.log("mysql connected");
+      // console.log("mysql connected");
       resolve(connection);
     } else {
       const connection = connectionPool.pop();
-      console.log("mysql connected!");
+      // console.log("mysql connected!");
       resolve(connection);
     }
   });

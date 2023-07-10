@@ -3,12 +3,13 @@ const router = express.Router();
 const Fuse = require("fuse.js");
 const path = require("path");
 const find_trains = require("../controller/find_trains");
+const get_seat_count = require("../controller/seat_count");
 
 router.use(express.static("public"));
 
 const list = require("../utils/stations.json");
 const options = {
-  keys: ["station_code", "station_name"],
+  keys: ["station_name", "station_code"],
   threshold: 0.2,
 };
 
@@ -22,11 +23,9 @@ router.get("/stations", (req, res) => {
   }
 });
 
-router.post("/find_trains", async (req, res) => {
-  // const source = req.query.source;
-  // const destination = req.query.destination;
-  // res.sendFile(path.join(__dirname, "../public", "train_results.html"));
-});
+router.get("/find_trains", find_trains);
+
+router.get("/seats", get_seat_count);
 
 router.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "../public", "homepage.html"));

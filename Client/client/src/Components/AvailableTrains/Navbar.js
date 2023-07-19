@@ -4,9 +4,12 @@ import List from "../HomePage/List/List";
 import "./Navbar.css";
 import swapImage from "../HomePage/swap.svg";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Contexts/AuthContext";
 
 const Navbar = ({ station }) => {
   const { data, setData } = useFetch();
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, logout } =
+    useAuth();
 
   const [isDropDownVisible, setIsDropDownVisible] = useState({
     input1: false,
@@ -84,7 +87,7 @@ const Navbar = ({ station }) => {
         )}
         <div className="swap-btn-div">
           <img
-            id="swap-img"
+            id="swap-img-nav"
             src={swapImage}
             alt="swap-stations"
             onClick={() => swapStations()}
@@ -112,6 +115,24 @@ const Navbar = ({ station }) => {
               Modify
             </button>
           </Link>
+        </div>
+        <div className="auth">
+          {isLoggedIn ? <span id="user-name">Welcome, {authUser}</span> : null}
+          <br />
+          {isLoggedIn ? (
+            <button id="logout-btn" onClick={(e) => logout(e)}>
+              Log Out
+            </button>
+          ) : (
+            <>
+              <Link to="/login">
+                <button id="login-btn">Log In</button>
+              </Link>
+              <Link to="/signup">
+                <button id="register-btn">Register</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

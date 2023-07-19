@@ -31,6 +31,23 @@ const TrainResult = ({ details, stations }) => {
     }, 30000);
   }, []);
 
+  const bookTicket = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      train_number: details[0].train_number,
+      source: stations.src_station_code,
+      destionation: stations.dest_station_code,
+    };
+
+    try {
+      const response = await axios.post("/book", data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="train-result-div">
@@ -45,14 +62,18 @@ const TrainResult = ({ details, stations }) => {
         <div className="main-content">
           <div className="train-info">
             <div className="left">
-              <h2>{`${details[0].route[0].departure_time.slice(0, -3)}`} | </h2>
+              <h2 className="time-text">
+                {`${details[0].route[0].departure_time.slice(0, -3)}`} |{" "}
+              </h2>
               <p>{`${stations.src_station_name}`}</p>
             </div>
             <div className="center">
               <p>02:19</p>
             </div>
             <div className="right">
-              <h2>{`${details[1].route[0].arrival_time.slice(0, -3)}`} | </h2>
+              <h2 className="time-text">
+                {`${details[1].route[0].arrival_time.slice(0, -3)}`} |{" "}
+              </h2>
               <p>{`${stations.dest_station_name}`}</p>
             </div>
           </div>
@@ -74,7 +95,9 @@ const TrainResult = ({ details, stations }) => {
             </div>
           </div>
           <div className="book-btn-div">
-            <button className="book-btn">Book</button>
+            <button className="book-btn" onClick={bookTicket}>
+              Book
+            </button>
           </div>
         </div>
       </div>

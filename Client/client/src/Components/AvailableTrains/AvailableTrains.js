@@ -44,7 +44,7 @@ const AvailableTrains = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [input.data]);
 
   return (
     <>

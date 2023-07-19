@@ -6,9 +6,11 @@ import locationImage from "./location.gif";
 import swapImage from "./swap.svg";
 import useFetch from "../../hooks/useFetch";
 import List from "./List/List";
+import { useAuth } from "../../Contexts/AuthContext";
 
 const HomePage = () => {
   const { data, setData } = useFetch();
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
   const [isDropDownVisible, setIsDropDownVisible] = useState({
     input1: false,
@@ -59,8 +61,30 @@ const HomePage = () => {
     });
   };
 
+  const logout = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="container">
+      <div className="header">
+        {isLoggedIn ? <span id="user-name">Welcome, {authUser}</span> : null}
+        <br />
+        {isLoggedIn ? (
+          <button id="logout-btn" onClick={(e) => logout(e)}>
+            Log Out
+          </button>
+        ) : (
+          <>
+            <Link to="/login">
+              <button id="login-btn">Log In</button>
+            </Link>
+            <Link to="/signup">
+              <button id="register-btn">Register</button>
+            </Link>
+          </>
+        )}
+      </div>
       <div className="entry-title-div">
         <h1 id="entry-title">Railway Ticket Booking System</h1>
       </div>

@@ -37,6 +37,8 @@ const issueJwt = (user) => {
 
   const payload = {
     sub: _id,
+    name: user.username,
+    email: user.email,
     iat: Date.now(),
   };
 

@@ -9,11 +9,11 @@ const login = async (req, res, next) => {
   } catch (err) {
     console.error("error checking existing user!");
     console.log(err);
-    res.status(500);
+    return res.status(500).send("internal server error!");
   }
 
   if (!user) {
-    res.status(404).json({ success: false, msg: "could not find user!" });
+    return res.status(404).send("could not find user!");
   }
 
   let isValidPassword = false;
@@ -26,7 +26,7 @@ const login = async (req, res, next) => {
   } catch (error) {
     console.error("Error comparing hashed password");
     console.log(error);
-    res.status(500).json("Log in failed");
+    return res.status(500).send("internal server error!");
   }
 
   if (!isValidPassword) {
@@ -36,15 +36,14 @@ const login = async (req, res, next) => {
   const tokenObj = utils.issueJwt(user);
 
   const cookieOptions = {
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + 1 * 60 * 1000),
     httpOnly: true,
   };
 
-  // res.setHeader("Authorization", tokenObj.token);
   res.cookie("jwt", tokenObj.token, cookieOptions);
 
   console.log("sending...");
-  res.status(200).json({
+  return res.status(200).send({
     success: true,
     email: user.email,
     name: user.username,

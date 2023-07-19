@@ -29,8 +29,6 @@ const register = async (req, res, next) => {
       res.status(403).json("email is alredy registered!");
     });
 
-    res.redirect("/auth/login");
-
     // .then((user) => {
     //   const jwt = utils.issueJwt(user);
 

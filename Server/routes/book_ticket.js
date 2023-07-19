@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getConnection, releaseConnection } = require("../config/mysqlDB");
+const authMiddleWare = require("../authentication/lib/utils").authMiddleWare;
 
 // try to book ticket
 // check for payment
@@ -8,7 +9,7 @@ const { getConnection, releaseConnection } = require("../config/mysqlDB");
 // on any error rollback the transactions
 // else commit the transactions
 
-router.get("/book", async (req, res) => {
+router.post("/book", authMiddleWare, async (req, res) => {
   let connection;
 
   try {
@@ -68,6 +69,8 @@ router.get("/book", async (req, res) => {
   try {
     result = connection.commit();
     releaseConnection(connection);
+
+    res.status(200).send("ticket booked!");
   } catch (error) {
     console.log("error commiting data");
     console.error(error);

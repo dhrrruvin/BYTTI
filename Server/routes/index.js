@@ -27,8 +27,4 @@ router.get("/find_trains", find_trains);
 
 router.get("/seats", get_seat_count);
 
-router.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "homepage.html"));
-});
-
 module.exports = router;

@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(parser());
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 require("./config/database");
 require("./models/user");

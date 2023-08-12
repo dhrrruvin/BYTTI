@@ -44,7 +44,7 @@ for name, group in grouped:
         destination_station_code = b
         seats = 2
 
-        query = "insert into book_seats(train_number, source_station_code, destination_station_code, seats) values (%s, %s, %s, %s)"
+        query = "insert into seats(train_number, source_station_code, destination_station_code, seats) values (%s, %s, %s, %s)"
         values = (train_number, source_station_code, destination_station_code, seats)
 
         cursor.execute(query, values)

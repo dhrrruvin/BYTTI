@@ -5,10 +5,10 @@ from pymongo import MongoClient
 mongo_host = 'localhost'
 mongo_port = 27017
 database_name = 'train_booking'
-collection_name = 'trainRoute'
+collection_name = 'stations'
 
 # Load JSON data from file
-with open('trainRoute.json') as file:
+with open('stations.json') as file:
     data = json.load(file)
 
 # Connect to MongoDB

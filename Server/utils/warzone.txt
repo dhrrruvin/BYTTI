@@ -1,11 +1,11 @@
 sql commands to paste in shell
 
 create table seats (
-    id number auto_increment primary_key,
+    id int auto_increment primary key,
     train_number varchar(10),
     source_station_code varchar(7),
     destination_station_code varchar(7),
-    seats number
+    seats int
 );
 
 select * from book_seats where id between 17870 and 17880;

@@ -1,0 +1,40 @@
+.contact-info-div {
+    background-color: #6EDBF0;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-info-header {
+    font-size: 28px;
+}
+
+.ticket-notice {
+    font-size: small;
+    color: black;
+}
+
+.contact-input-div {
+    display: flex;
+}
+
+.mobile-country-code {
+    width: 50px;
+    background-color: blanchedalmond;
+    font-size: 18px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-country-code span{
+    text-align: center;
+}
+
+#passenger-number::-webkit-outer-spin-button, #passenger-number::-webkit-inner-spin-button {
+    appearance: none;
+}

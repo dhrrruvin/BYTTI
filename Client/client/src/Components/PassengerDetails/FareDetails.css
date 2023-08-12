@@ -1,0 +1,38 @@
+.fare-details-main-div {
+    background-color: black;
+    color: white;
+    word-wrap: break-word;
+    position: absolute;
+    right: 10px;
+    top: 200px;
+    width: 25%;
+}
+
+.fare-details-header-div {
+    background-color: bisque;
+    padding: 10px;
+    color: black;
+}
+
+.ticket-fare-div {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
+
+.total-ticket-fare-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: burlywood;
+    color: black;
+    font-size: 26px;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}

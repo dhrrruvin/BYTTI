@@ -1,0 +1,18 @@
+.passenger-info-div {
+    background-color: #6EDBF0;
+    color: white;
+    padding: 10px;
+}
+
+.passenger-info-header {
+    font-size: 28px;
+}
+
+.add-passenger-btn-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-passenger {
+    cursor: pointer;
+}

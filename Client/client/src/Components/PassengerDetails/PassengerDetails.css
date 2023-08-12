@@ -1,0 +1,30 @@
+.main-passenger-details-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.journey-parent-div {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pay-btn {
+    width: 150px;
+    height: 50px;
+    outline: none;
+    background-color: #FEF4B2;
+    color: black;
+    border-radius: 5px;
+    font-size: 18px;
+    border: 0;
+}
+
+.pay-btn:hover {
+    color: white;
+    background-color: black;
+}

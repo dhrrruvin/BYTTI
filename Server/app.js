@@ -19,6 +19,7 @@ app.use("/auth", require("./authentication/routes/auth"));
 
 app.use("/", require("./routes/index"));
 app.use("/", require("./routes/book_ticket"));
+app.use("/", require("./routes/payment"));
 
 app.get("/", (req, res) => {
   res.send("Helo");

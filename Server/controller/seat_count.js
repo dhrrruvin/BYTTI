@@ -26,7 +26,7 @@ const get_seat_count = async (req, res) => {
 
   const get_rows = new Promise((resolve, reject) => {
     connection.query(
-      `select id from book_seats where train_number="${train_number}" and (source_station_code="${source}" or destination_station_code="${destination}")`,
+      `select id from seats where train_number="${train_number}" and (source_station_code="${source}" or destination_station_code="${destination}")`,
       (err, res) => {
         if (err) reject(err);
         else resolve(res);
@@ -49,7 +49,7 @@ const get_seat_count = async (req, res) => {
 
   const get_count = new Promise((resolve, reject) => {
     connection.query(
-      `select seats from book_seats where id between ${start_id} and ${end_id}`,
+      `select seats from seats where id between ${start_id} and ${end_id}`,
       (err, res) => {
         if (err) reject(err);
         else resolve(res);

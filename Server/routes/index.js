@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
+// const router = express.Router();
 const Fuse = require("fuse.js");
 const path = require("path");
 const find_trains = require("../controller/find_trains");
 const get_seat_count = require("../controller/seat_count");
 
-router.use(express.static("public"));
+// router.use(express.static("public"));
 
 const list = require("../utils/stations.json");
 const options = {

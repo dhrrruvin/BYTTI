@@ -18,7 +18,8 @@
     "fuse.js": "^6.6.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.2",
-    "mysql2": "^3.3.5"
+    "mysql2": "^3.3.5",
+    "razorpay": "^2.9.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

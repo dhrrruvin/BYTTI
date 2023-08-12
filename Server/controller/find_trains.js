@@ -8,28 +8,96 @@ const handleResult = (result) => {
     trainsBetweenStation.push([result[i], result[i + 1]]);
   }
 
-  console.log("final result: ", trainsBetweenStation.length);
-  // res.status(200).send(trainsBetweenStation.length.toString());
   return trainsBetweenStation;
 };
 
-// const sendData = (result, res) => {
-//   const batchSize = 5;
+// const find_trains = async (req, res) => {
+//   const source = req.query.src;
+//   const destination = req.query.dest;
 
-//   const readble = new require("stream").Readable({ objectMode: true });
+//   console.log(source);
+//   console.log(destination);
 
-//   const batches = [];
-//   for (let i = 0; i < result.length; i += batchSize) {
-//     const batch = result.slice(i, i + batchSize);
-//     batches.push(batch);
-//   }
+//   q = {
+//     $and: [
+//       { stations: source },
+//       { stations: destination },
+//       {
+//         $expr: {
+//           $lt: [
+//             { $indexOfArray: ["$stations", source] },
+//             { $indexOfArray: ["$stations", destination] },
+//           ],
+//         },
+//       },
+//     ],
+//   };
 
-//   readble.push(null);
+//   projection = { _id: 0, train_number: 1 };
 
-//   res.setHeader("Content-Type", "application/json");
-//   res.setHeader("Transfer-Encoding", "chunked");
+//   // returns the list of train numbers from A->B
+//   TrainRoute.find(q, projection)
+//     .exec()
+//     .then((resp) => extractAndSearch(resp));
 
-//   readble.pipe(res);
+//   const extractAndSearch = (object) => {
+//     let available_trains = [];
+//     let result = [];
+
+//     // extract the trains from the json object
+//     object.filter((obj) => available_trains.push(obj.train_number));
+
+//     // get the FROM station id
+//     let from_id, to_id;
+//     Station.findOne({ station_code: source })
+//       .then((station) => {
+//         from_id = station.id;
+
+//         // get the TO station id
+//         Station.findOne({ station_code: destination })
+//           .then((station) => {
+//             // when you have both {from} and {to} station id
+//             // find all the trains with {available_trains} which also have station field as {from} or {to}
+//             // this will give all the details of the trains on searched stations
+
+//             to_id = station.id;
+
+//             q = {
+//               $and: [
+//                 { train_number: { $in: available_trains } },
+//                 {
+//                   $or: [
+//                     { "route.station": from_id },
+//                     { "route.station": to_id },
+//                   ],
+//                 },
+//               ],
+//             };
+//             p = {
+//               train_number: 1,
+//               train_name: 1,
+//               "route.station": 1,
+//               "route.arrival_time": 1,
+//               "route.departure_time": 1,
+//             };
+//             Train1.find(q)
+//               .exec()
+//               .then((route) => {
+//                 result.push(route);
+//                 console.log("total results: ", result[0].length);
+
+//                 // this method will make pair of {source} and {destination} train details to send this results to front-end
+//                 let trainsBetweenStations = handleResult(result[0]);
+
+//                 res.status(200).send(trainsBetweenStations);
+
+//                 // sendData(trainsBetweenStations, res);
+//               });
+//           })
+//           .catch((e) => console.log(e));
+//       })
+//       .catch((e) => console.log(e));
+//   };
 // };
 
 const find_trains = async (req, res) => {
@@ -39,7 +107,7 @@ const find_trains = async (req, res) => {
   console.log(source);
   console.log(destination);
 
-  q = {
+  let q = {
     $and: [
       { stations: source },
       { stations: destination },
@@ -54,67 +122,47 @@ const find_trains = async (req, res) => {
     ],
   };
 
-  projection = { _id: 0, train_number: 1 };
+  let projection = { _id: 0, train_number: 1 };
 
-  // returns the list of train numbers from A->B
-  TrainRoute.find(q, projection)
-    .exec()
-    .then((resp) => extractAndSearch(resp));
+  try {
+    const resp = await TrainRoute.find(q, projection).exec();
+    const available_trains = resp.map((obj) => obj.train_number);
 
-  const extractAndSearch = (object) => {
-    let available_trains = [];
-    let result = [];
-    // console.log(object);
-    // extract the trains from the json object
-    object.filter((obj) => available_trains.push(obj.train_number));
+    const from_station = await Station.findOne({ station_code: source });
+    const from_id = from_station.id;
 
-    // console.log(available_trains);
+    const to_station = await Station.findOne({ station_code: destination });
+    const to_id = to_station.id;
 
-    // get the FROM station id
-    let from_id;
-    Station.findOne({ station_code: source })
-      .then((station) => {
-        from_id = station.id;
-      })
-      .catch((e) => console.log(e));
+    const train_query = {
+      $and: [
+        { train_number: { $in: available_trains } },
+        {
+          $or: [{ "route.station": from_id }, { "route.station": to_id }],
+        },
+      ],
+    };
 
-    // get the TO station id
-    Station.findOne({ station_code: destination })
-      .then((station) => {
-        // when you have both {from} and {to} station id
-        // find all the trains with {available_trains} which also have station field as {from} or {to}
-        // this will give all the details of the trains on searched stations
+    const projection2 = {
+      train_number: 1,
+      train_name: 1,
+      "route.station": 1,
+      "route.arrival_time": 1,
+      "route.departure_time": 1,
+    };
 
-        to_id = station.id;
-        q = {
-          $and: [
-            { train_number: { $in: available_trains } },
-            { $or: [{ "route.station": from_id }, { "route.station": to_id }] },
-          ],
-        };
-        p = {
-          train_number: 1,
-          train_name: 1,
-          "route.station": 1,
-          "route.arrival_time": 1,
-          "route.departure_time": 1,
-        };
-        Train1.find(q, p)
-          .exec()
-          .then((route) => {
-            result.push(route);
-            console.log("total results: ", result[0].length);
+    const route = await Train1.find(train_query, projection2).exec();
 
-            // this method will make pair of {source} and {destination} train details to send this results to front-end
-            let trainsBetweenStations = handleResult(result[0]);
+    const trainsBetweenStations = handleResult(route);
 
-            res.status(200).send(trainsBetweenStations);
+    console.log("total results: ", trainsBetweenStations.length);
 
-            // sendData(trainsBetweenStations, res);
-          });
-      })
-      .catch((e) => console.log(e));
-  };
+    res.status(200).json({ success: true, trains: trainsBetweenStations });
+  } catch (err) {
+    console.log("error finding train!");
+    console.log(err);
+    res.status(500).json({ success: false, data: "internal server error" });
+  }
 };
 
 module.exports = find_trains;

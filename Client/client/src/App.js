@@ -4,6 +4,10 @@ import HomePage from "./Components/HomePage/HomePage";
 import AvailableTrains from "./Components/AvailableTrains/AvailableTrains";
 import Signup from "./Components/Authentication/Signup";
 import Login from "./Components/Authentication/Login";
+import PassengerDetails from "./Components/PassengerDetails/PassengerDetails";
+import ProtectedRoute from "../src/middleware/ProtectedRoute";
+import PaymentSuccess from "./Components/PaymentStatus/PaymentSucessful";
+import GeneratePDF from "./Components/TicketPDF/GeneratePDF";
 
 function App() {
   return (
@@ -14,18 +18,21 @@ function App() {
           <Route exact path="/available-trains" element={<AvailableTrains />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
+          {/* <Route exact path="/psnginput" element={<PassengerDetails />} /> */}
+          {/* <ProtectedRoute path="/psnginput" element={<PassengerDetails />} /> */}
+          <Route
+            exact
+            path="/psnginput"
+            element={
+              <ProtectedRoute>
+                <PassengerDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route exact path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route exact path="/ticket" element={<GeneratePDF />} />
         </Routes>
       </Router>
-
-      {/* <Router exact path="/logout">
-        <Home />
-      </Router>
-      <Router exact path="/login">
-        <Home />
-      </Router>
-      <Router exact path="/register">
-        <Home />
-      </Router> */}
     </div>
   );
 }

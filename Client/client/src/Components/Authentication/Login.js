@@ -23,7 +23,6 @@ const Login = () => {
       });
       setIsLoggedIn(true);
       setAuthUser(response.data.name);
-      // navigate("/available-trains");
       navigate(-1);
     } catch (error) {
       setResponseData(error.response.data);

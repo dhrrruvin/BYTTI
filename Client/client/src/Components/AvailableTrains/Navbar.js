@@ -5,23 +5,42 @@ import "./Navbar.css";
 import swapImage from "../HomePage/swap.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Contexts/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSourceStation } from "../../redux/actions/SourceStationActions";
+import { selectDestionationStation } from "../../redux/actions/DestinationStationActions";
 
-const Navbar = ({ station }) => {
+const Navbar = () => {
   const { data, setData } = useFetch();
   const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, logout } =
     useAuth();
+
+  // const [stations, setStations] = useState({ input1: "", input2: "" });
 
   const [isDropDownVisible, setIsDropDownVisible] = useState({
     input1: false,
     input2: false,
   });
 
-  const source = station.input1;
-  const destination = station.input2;
+  // const source = station.input1;
+  // const destination = station.input2;
+
+  const dispatch = useDispatch();
+
+  const sourceStationData = useSelector((state) => state.SourceStationReducer);
+  const destinationStationData = useSelector(
+    (state) => state.DestinationStationReducer
+  );
+
+  const [sourceStation, setSourceStation] = useState(
+    sourceStationData.source_station
+  );
+  const [destinationStation, setDestinationStation] = useState(
+    destinationStationData.destination_station
+  );
 
   const [selectedItem, setSelectedItem] = useState({
-    input1: source,
-    input2: destination,
+    input1: sourceStationData.source_station,
+    input2: destinationStationData.destination_station,
   });
 
   const handleFocus = (inputId) => {
@@ -41,6 +60,9 @@ const Navbar = ({ station }) => {
       ...prevState,
       [inputId]: false,
     }));
+
+    if (inputId === "input1") setSourceStation(text);
+    else if (inputId === "input2") setDestinationStation(text);
   };
 
   const handleBlur = (inputId) => {
@@ -64,6 +86,13 @@ const Navbar = ({ station }) => {
       input1: selectedItem.input2,
       input2: selectedItem.input1,
     });
+    dispatch(selectSourceStation(selectedItem.input2));
+    dispatch(selectDestionationStation(selectedItem.input1));
+  };
+
+  const handleModifyBtn = () => {
+    dispatch(selectSourceStation(sourceStation));
+    dispatch(selectDestionationStation(destinationStation));
   };
 
   return (
@@ -110,8 +139,8 @@ const Navbar = ({ station }) => {
           />
         )}
         <div className="modify-btn-div">
-          <Link to="/available-trains" state={{ data: selectedItem }}>
-            <button id="modify-btn" type="submit">
+          <Link to="/available-trains">
+            <button id="modify-btn" onClick={(e) => handleModifyBtn()}>
               Modify
             </button>
           </Link>

@@ -40,11 +40,14 @@
 .left {
     display: flex;
     flex-direction: row;
+    width: 40%;
 }
 
 .right {
     display: flex;
     flex-direction: row;
+    width: 40%;
+    justify-content: end;
 }
 
 .ticket-show-div {

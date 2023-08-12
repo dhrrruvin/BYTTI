@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./TrainResult.css";
 import axios from "../../api/axios";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { readTrainData } from "../../redux/actions/TrainDataActions";
 
 const TrainResult = ({ details, stations }) => {
   const [availableSeats, setAvailableSeats] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchSeats = async () => {
@@ -46,6 +50,22 @@ const TrainResult = ({ details, stations }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const storeTrainInfo = () => {
+    const data = {
+      train_number: details[0].train_number,
+      train_name: details[0].train_name,
+      source_station_name: stations.src_station_name,
+      destination_station_name: stations.dest_station_name,
+      source_station_code: stations.src_station_code,
+      destination_station_code: stations.dest_station_code,
+      source_arrival_time: details[0].route[0].arrival_time.slice(0, -3),
+      destination_arrival_time: details[1].route[0].arrival_time.slice(0, -3),
+      source_departure_time: details[0].route[0].departure_time.slice(0, -3),
+    };
+
+    dispatch(readTrainData(data));
   };
 
   return (
@@ -95,9 +115,11 @@ const TrainResult = ({ details, stations }) => {
             </div>
           </div>
           <div className="book-btn-div">
-            <button className="book-btn" onClick={bookTicket}>
-              Book
-            </button>
+            <Link to="/psnginput">
+              <button className="book-btn" onClick={() => storeTrainInfo()}>
+                Book
+              </button>
+            </Link>
           </div>
         </div>
       </div>

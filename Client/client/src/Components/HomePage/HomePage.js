@@ -7,10 +7,16 @@ import swapImage from "./swap.svg";
 import useFetch from "../../hooks/useFetch";
 import List from "./List/List";
 import { useAuth } from "../../Contexts/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSourceStation } from "../../redux/actions/SourceStationActions";
+import { selectDestionationStation } from "../../redux/actions/DestinationStationActions";
 
 const HomePage = () => {
   const { data, setData } = useFetch();
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, logout } =
+    useAuth();
+
+  const dispatch = useDispatch();
 
   const [isDropDownVisible, setIsDropDownVisible] = useState({
     input1: false,
@@ -36,6 +42,12 @@ const HomePage = () => {
       ...prevState,
       [inputId]: false,
     }));
+
+    if (inputId === "input1") {
+      dispatch(selectSourceStation(text));
+    } else if (inputId === "input2") {
+      dispatch(selectDestionationStation(text));
+    }
   };
 
   const handleBlur = (inputId) => {
@@ -59,10 +71,9 @@ const HomePage = () => {
       input1: selectedItem.input2,
       input2: selectedItem.input1,
     });
-  };
 
-  const logout = (e) => {
-    e.preventDefault();
+    // dispatch(selectSourceStation(selectedItem.input2));
+    // dispatch(selectDestionationStation(selectedItem.input1));
   };
 
   return (
@@ -132,7 +143,7 @@ const HomePage = () => {
           )}
         </div>
         <div className="search-btn-div">
-          <Link to="/available-trains" state={{ data: selectedItem }}>
+          <Link to="/available-trains">
             <button id="search-btn" type="submit">
               search
             </button>

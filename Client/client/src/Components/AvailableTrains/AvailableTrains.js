@@ -4,15 +4,18 @@ import TrainResult from "./TrainResult";
 import "./AvailableTrains.css";
 import axios from "../../api/axios";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const AvailableTrains = () => {
   const [data, setData] = useState([]);
 
-  const location = useLocation();
-  const input = location.state;
+  const sourceStationData = useSelector((state) => state.SourceStationReducer);
+  const destinationStationData = useSelector(
+    (state) => state.DestinationStationReducer
+  );
 
-  const source = input.data.input1.split(" - ");
-  const destination = input.data.input2.split(" - ");
+  const source = sourceStationData.source_station.split(" - ");
+  const destination = destinationStationData.destination_station.split(" - ");
 
   const src_station_code = source[0];
   const dest_station_code = destination[0];
@@ -36,19 +39,19 @@ const AvailableTrains = () => {
               dest: dest_station_code,
             })
         );
-        console.log(response.data.length);
-        setData(response.data);
+        console.log(response.data.trains.length);
+        setData(response.data.trains);
       } catch (err) {
         console.log("error calling the api in availableTrains.js");
         console.log(err);
       }
     };
     fetchData();
-  }, [input.data]);
+  }, [sourceStationData, destinationStationData]);
 
   return (
     <>
-      <Navbar station={input.data} />
+      <Navbar />
       <div className="results">
         {data.map((item, id) => (
           <TrainResult key={id} details={item} stations={stations} />
